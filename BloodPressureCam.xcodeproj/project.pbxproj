@@ -1,0 +1,501 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13D917BB6DC6D9D3E8D94A05 /* ReportGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026A4D6A1C35AA69CB53516 /* ReportGenerator.swift */; };
+		2C7687CF33BEE473845AE9BA /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE02BADF7CF8410FE9FF742 /* ReportsView.swift */; };
+		3EE70A372C32763315EE1B69 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */; };
+		55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AB55E7E07D245DD98AB533 /* ContentView.swift */; };
+		59B7B4F5F4FD7D2BEDE57D61 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */; };
+		604D87C4F4C70A3E9A2D016F /* CaptureEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */; };
+		6501357C5B52441DE9B3D9A9 /* PhotoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */; };
+		6D9F7DDA5F1E912BDC9E06EA /* ReportMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33357441BF6E181B1C8BCECD /* ReportMetrics.swift */; };
+		9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */; };
+		AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */; };
+		BB6ED88B2DD73E92F2A0A8E6 /* BloodPressureCamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */; };
+		BD0A8071A28F7C7C6BBDA752 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1470FFB0FCC740193E449F84 /* RecordsView.swift */; };
+		C48DC6BF093EC7E79FC57BBD /* MeasurementStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A78D6A434F29AAA2166007 /* MeasurementStore.swift */; };
+		C7368AE7DC5E62BB0A89D91A /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */; };
+		CBEA96CD5C38D9815F75D487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0486D5D67DCE003CD70EAC1 /* Assets.xcassets */; };
+		DB03936143CA7D36AE4C1E89 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B26640D987CC1AFEE6F296 /* StatisticsView.swift */; };
+		FBD6504D5F4C6A4D5023A210 /* BloodPressureReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150C158114A8BE19D5226858 /* BloodPressureReading.swift */; };
+		FEA5D6C1F23E5767B37FE79E /* DateRangeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CECEDFC596593543B91AA5 /* DateRangeOption.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84CFBD477470B99426C95CEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F768D4CAFDCFA7C4397501B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2F3F5FF3BD4798D467DCE84;
+			remoteInfo = BloodPressureCam;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		07CECEDFC596593543B91AA5 /* DateRangeOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeOption.swift; sourceTree = "<group>"; };
+		096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureEntryView.swift; sourceTree = "<group>"; };
+		0B1F984A2F8ED188570A7C13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1470FFB0FCC740193E449F84 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
+		150C158114A8BE19D5226858 /* BloodPressureReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureReading.swift; sourceTree = "<group>"; };
+		33357441BF6E181B1C8BCECD /* ReportMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMetrics.swift; sourceTree = "<group>"; };
+		4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		4EE02BADF7CF8410FE9FF742 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
+		4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
+		5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
+		7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureCamApp.swift; sourceTree = "<group>"; };
+		8026A4D6A1C35AA69CB53516 /* ReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGenerator.swift; sourceTree = "<group>"; };
+		85AB55E7E07D245DD98AB533 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementStoreTests.swift; sourceTree = "<group>"; };
+		D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorage.swift; sourceTree = "<group>"; };
+		D8A78D6A434F29AAA2166007 /* MeasurementStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementStore.swift; sourceTree = "<group>"; };
+		DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E01C18EB2AAB5E7C07E41995 /* BloodPressureCamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloodPressureCamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0486D5D67DCE003CD70EAC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E61B1BF290534F15FC5CFEB3 /* BloodPressureCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloodPressureCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7B26640D987CC1AFEE6F296 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0C8A368E8442E80933CEBFCA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */,
+				07CECEDFC596593543B91AA5 /* DateRangeOption.swift */,
+				33357441BF6E181B1C8BCECD /* ReportMetrics.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		321E5C51D1F467E469D96C9D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				150C158114A8BE19D5226858 /* BloodPressureReading.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3AB7D72CF212F3B43D32F753 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		6230909793EBFB202CDB4A90 = {
+			isa = PBXGroup;
+			children = (
+				8728452DF9028288FE5EFC18 /* Sources */,
+				3AB7D72CF212F3B43D32F753 /* Tests */,
+				E1E5588A5AD95995FE5ADB84 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86125765FFE4A1F5D60D96CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */,
+				096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */,
+				85AB55E7E07D245DD98AB533 /* ContentView.swift */,
+				4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */,
+				1470FFB0FCC740193E449F84 /* RecordsView.swift */,
+				4EE02BADF7CF8410FE9FF742 /* ReportsView.swift */,
+				DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */,
+				F7B26640D987CC1AFEE6F296 /* StatisticsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8728452DF9028288FE5EFC18 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */,
+				0B1F984A2F8ED188570A7C13 /* Info.plist */,
+				321E5C51D1F467E469D96C9D /* Models */,
+				F8F3C22B21C1AC6DFFF85486 /* Resources */,
+				8ACB4DF2D92C869251976147 /* Services */,
+				0C8A368E8442E80933CEBFCA /* Utilities */,
+				86125765FFE4A1F5D60D96CE /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8ACB4DF2D92C869251976147 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D8A78D6A434F29AAA2166007 /* MeasurementStore.swift */,
+				D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */,
+				8026A4D6A1C35AA69CB53516 /* ReportGenerator.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E1E5588A5AD95995FE5ADB84 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E61B1BF290534F15FC5CFEB3 /* BloodPressureCam.app */,
+				E01C18EB2AAB5E7C07E41995 /* BloodPressureCamTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8F3C22B21C1AC6DFFF85486 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E0486D5D67DCE003CD70EAC1 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F2B6ACD3ECF9F873E556EC87 /* BloodPressureCamTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6363E6A5FAF96DBBF6B92DC4 /* Build configuration list for PBXNativeTarget "BloodPressureCamTests" */;
+			buildPhases = (
+				4FE5B954BF332667A4AB63DD /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				69C6583D62C3155E4A3C04B0 /* PBXTargetDependency */,
+			);
+			name = BloodPressureCamTests;
+			packageProductDependencies = (
+			);
+			productName = BloodPressureCamTests;
+			productReference = E01C18EB2AAB5E7C07E41995 /* BloodPressureCamTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F2F3F5FF3BD4798D467DCE84 /* BloodPressureCam */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D36A13EBB170894248A61936 /* Build configuration list for PBXNativeTarget "BloodPressureCam" */;
+			buildPhases = (
+				9E75C0748776FEE4BB901FB1 /* Sources */,
+				75D19FBB8891644EAB14B263 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BloodPressureCam;
+			packageProductDependencies = (
+			);
+			productName = BloodPressureCam;
+			productReference = E61B1BF290534F15FC5CFEB3 /* BloodPressureCam.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9F768D4CAFDCFA7C4397501B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+			};
+			buildConfigurationList = E27B8A37454DFA3E38CBD440 /* Build configuration list for PBXProject "BloodPressureCam" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 6230909793EBFB202CDB4A90;
+			minimizedProjectReferenceProxies = 1;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2F3F5FF3BD4798D467DCE84 /* BloodPressureCam */,
+				F2B6ACD3ECF9F873E556EC87 /* BloodPressureCamTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75D19FBB8891644EAB14B263 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEA96CD5C38D9815F75D487 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4FE5B954BF332667A4AB63DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E75C0748776FEE4BB901FB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB6ED88B2DD73E92F2A0A8E6 /* BloodPressureCamApp.swift in Sources */,
+				FBD6504D5F4C6A4D5023A210 /* BloodPressureReading.swift in Sources */,
+				59B7B4F5F4FD7D2BEDE57D61 /* CameraCaptureView.swift in Sources */,
+				604D87C4F4C70A3E9A2D016F /* CaptureEntryView.swift in Sources */,
+				C7368AE7DC5E62BB0A89D91A /* Color+Hex.swift in Sources */,
+				55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */,
+				FEA5D6C1F23E5767B37FE79E /* DateRangeOption.swift in Sources */,
+				9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */,
+				C48DC6BF093EC7E79FC57BBD /* MeasurementStore.swift in Sources */,
+				6501357C5B52441DE9B3D9A9 /* PhotoStorage.swift in Sources */,
+				BD0A8071A28F7C7C6BBDA752 /* RecordsView.swift in Sources */,
+				13D917BB6DC6D9D3E8D94A05 /* ReportGenerator.swift in Sources */,
+				6D9F7DDA5F1E912BDC9E06EA /* ReportMetrics.swift in Sources */,
+				2C7687CF33BEE473845AE9BA /* ReportsView.swift in Sources */,
+				3EE70A372C32763315EE1B69 /* SettingsView.swift in Sources */,
+				DB03936143CA7D36AE4C1E89 /* StatisticsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		69C6583D62C3155E4A3C04B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2F3F5FF3BD4798D467DCE84 /* BloodPressureCam */;
+			targetProxy = 84CFBD477470B99426C95CEE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0A893BBE28453A4013B8BEAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		475D4A851FC04F7F888655E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		781205A5BEAEE9F67896264A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BloodPressureCamTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BloodPressureCam.app/BloodPressureCam";
+			};
+			name = Debug;
+		};
+		9D361CB03D1B75185F3FE8D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INFO_PLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BloodPressureCam;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C84D7628C4B5EE2F516C46D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BloodPressureCamTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BloodPressureCam.app/BloodPressureCam";
+			};
+			name = Release;
+		};
+		FBDE92102842837059023A37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INFO_PLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BloodPressureCam;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6363E6A5FAF96DBBF6B92DC4 /* Build configuration list for PBXNativeTarget "BloodPressureCamTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				781205A5BEAEE9F67896264A /* Debug */,
+				C84D7628C4B5EE2F516C46D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D36A13EBB170894248A61936 /* Build configuration list for PBXNativeTarget "BloodPressureCam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D361CB03D1B75185F3FE8D2 /* Debug */,
+				FBDE92102842837059023A37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E27B8A37454DFA3E38CBD440 /* Build configuration list for PBXProject "BloodPressureCam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				475D4A851FC04F7F888655E0 /* Debug */,
+				0A893BBE28453A4013B8BEAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9F768D4CAFDCFA7C4397501B /* Project object */;
+}

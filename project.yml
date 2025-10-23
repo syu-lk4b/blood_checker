@@ -1,0 +1,25 @@
+name: BloodPressureCam
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: '16.0'
+targets:
+  BloodPressureCam:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    settings:
+      INFO_PLIST_FILE: Sources/Info.plist
+    resources:
+      - path: Sources/Resources
+  BloodPressureCamTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    settings:
+      TEST_HOST: "$(BUILT_PRODUCTS_DIR)/BloodPressureCam.app/BloodPressureCam"
+      BUNDLE_LOADER: "$(TEST_HOST)"
+    dependencies:
+      - target: BloodPressureCam
