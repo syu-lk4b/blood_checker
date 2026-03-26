@@ -3,6 +3,7 @@ import UIKit
 
 struct ManualEntryView: View {
     @EnvironmentObject private var store: MeasurementStore
+    @EnvironmentObject private var llmService: LLMService
     @Environment(\.dismiss) private var dismiss
 
     @State private var reading: BloodPressureReading
@@ -10,6 +11,8 @@ struct ManualEntryView: View {
     @State private var showCamera = false
     @State private var showPhotoLibrary = false
     @State private var showAlert = false
+    @State private var isRecognizing = false
+    @State private var recognitionError: String?
     let existingReading: BloodPressureReading?
     let initialPhoto: UIImage?
 
@@ -22,6 +25,29 @@ struct ManualEntryView: View {
 
     var body: some View {
         Form {
+            if isRecognizing {
+                Section {
+                    HStack {
+                        ProgressView()
+                        Text("正在识别血压读数...")
+                            .foregroundColor(.secondary)
+                            .padding(.leading, 8)
+                    }
+                }
+            }
+
+            if let error = recognitionError {
+                Section {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle")
+                            .foregroundColor(.orange)
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+
             Section(header: Text("测量数据")) {
                 Stepper(value: $reading.systolic, in: 60...250, step: 1) {
                     HStack {
@@ -106,6 +132,7 @@ struct ManualEntryView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("保存") { save() }
+                    .disabled(isRecognizing)
             }
         }
         .sheet(isPresented: $showCamera) {
@@ -119,6 +146,11 @@ struct ManualEntryView: View {
             }
         }
         .alert("请输入正确的血压数据", isPresented: $showAlert) {}
+        .onAppear {
+            if existingReading == nil, let image = initialPhoto {
+                performOCR(on: image)
+            }
+        }
     }
 
     private func save() {
@@ -132,6 +164,73 @@ struct ManualEntryView: View {
             store.addReading(reading, photo: photo ?? initialPhoto)
         }
         dismiss()
+    }
+
+    private func performOCR(on image: UIImage) {
+        guard llmService.config.isConfigured else { return }
+
+        isRecognizing = true
+        recognitionError = nil
+
+        let prompt = """
+        请识别这张血压计照片中的读数。只返回 JSON 格式，不要其他文字：
+        {"systolic": 数值, "diastolic": 数值, "heartRate": 数值}
+        如果无法识别某个值，对应字段设为 null。
+        """
+
+        Task {
+            var result = ""
+            do {
+                for try await chunk in llmService.analyzeImage(image, prompt: prompt) {
+                    result += chunk
+                }
+                let jsonString = extractJSON(from: result)
+                if let data = jsonString.data(using: .utf8),
+                   let parsed = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    await MainActor.run {
+                        if let sys = parsed["systolic"] as? Int { reading.systolic = sys }
+                        if let dia = parsed["diastolic"] as? Int { reading.diastolic = dia }
+                        if let hr = parsed["heartRate"] as? Int { reading.heartRate = hr }
+                        isRecognizing = false
+                    }
+                } else {
+                    await MainActor.run {
+                        recognitionError = "无法识别读数，请手动输入"
+                        isRecognizing = false
+                    }
+                }
+            } catch let error as LLMError {
+                await MainActor.run {
+                    if case .visionNotSupported = error {
+                        recognitionError = error.errorDescription
+                    } else {
+                        recognitionError = "识别失败: \(error.localizedDescription)"
+                    }
+                    isRecognizing = false
+                }
+            } catch {
+                await MainActor.run {
+                    recognitionError = "识别失败，请手动输入"
+                    isRecognizing = false
+                }
+            }
+        }
+    }
+
+    private func extractJSON(from text: String) -> String {
+        if let range = text.range(of: "```json"),
+           let endRange = text.range(of: "```", range: range.upperBound..<text.endIndex) {
+            return String(text[range.upperBound..<endRange.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        if let range = text.range(of: "```"),
+           let endRange = text.range(of: "```", range: range.upperBound..<text.endIndex) {
+            return String(text[range.upperBound..<endRange.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        if let start = text.firstIndex(of: "{"),
+           let end = text.lastIndex(of: "}") {
+            return String(text[start...end])
+        }
+        return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 

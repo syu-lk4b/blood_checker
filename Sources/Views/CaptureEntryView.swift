@@ -3,6 +3,7 @@ import UIKit
 
 struct CaptureEntryView: View {
     @EnvironmentObject private var store: MeasurementStore
+    @EnvironmentObject private var llmService: LLMService
     @Binding var isPresented: Bool
     @State private var showCameraSheet = false
     @State private var capturedImage: UIImage?
@@ -24,6 +25,11 @@ struct CaptureEntryView: View {
                 Text("拍照后可对识别出来的数据进行校准和补充")
                     .font(.footnote)
                     .foregroundColor(.secondary)
+                if llmService.config.isConfigured {
+                    Text("AI 识别已启用")
+                        .font(.caption)
+                        .foregroundColor(.green)
+                }
                 Spacer()
                 Button(action: { showCameraSheet = true }) {
                     Label("开始拍照", systemImage: "camera")
@@ -54,6 +60,7 @@ struct CaptureEntryView: View {
             NavigationView {
                 ManualEntryView(existingReading: nil, initialPhoto: capturedImage)
                     .environmentObject(store)
+                    .environmentObject(llmService)
             }
         }
     }
