@@ -45,9 +45,13 @@ struct ChatBubbleView: View {
         .padding(.vertical, 2)
     }
 
+    private static let timeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.timeStyle = .short
+        return f
+    }()
+
     private var timeString: String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: message.timestamp)
+        Self.timeFormatter.string(from: message.timestamp)
     }
 }

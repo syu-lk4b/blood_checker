@@ -165,17 +165,13 @@ struct AIAssistantView: View {
                     .textFieldStyle(.roundedBorder)
                     .lineLimit(1...5)
 
+                let canSend = !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isStreaming
                 Button(action: sendMessage) {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.title2)
-                        .foregroundColor(
-                            inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isStreaming
-                                ? .secondary : .accentColor
-                        )
+                        .foregroundColor(canSend ? .accentColor : .secondary)
                 }
-                .disabled(
-                    inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isStreaming
-                )
+                .disabled(!canSend)
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
@@ -222,6 +218,16 @@ struct AIAssistantView: View {
 
     // MARK: - Actions
 
+    private static let systemPrompt = "你是一个专业的健康助手，擅长血压相关的健康问题。请用中文回答。注意：你的回答仅供参考，不构成医疗建议。"
+
+    private static let sessionDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .short
+        f.timeStyle = .short
+        f.locale = Locale(identifier: "zh_CN")
+        return f
+    }()
+
     private var currentSession: ChatSession? {
         chatStore.sessions.first { $0.id == currentSessionId }
     }
@@ -229,6 +235,14 @@ struct AIAssistantView: View {
     private func createNewSession() {
         let session = chatStore.createSession()
         currentSessionId = session.id
+    }
+
+    @discardableResult
+    private func ensureActiveSession() -> UUID {
+        if let id = currentSessionId { return id }
+        let session = chatStore.createSession()
+        currentSessionId = session.id
+        return session.id
     }
 
     private func toggleAttachData() {
@@ -243,11 +257,7 @@ struct AIAssistantView: View {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
 
-        if currentSessionId == nil {
-            let session = chatStore.createSession()
-            currentSessionId = session.id
-        }
-        guard let sessionId = currentSessionId else { return }
+        let sessionId = ensureActiveSession()
 
         var fullContent = text
         if attachData {
@@ -266,11 +276,7 @@ struct AIAssistantView: View {
     }
 
     private func analyzeData() {
-        if currentSessionId == nil {
-            let session = chatStore.createSession()
-            currentSessionId = session.id
-        }
-        guard let sessionId = currentSessionId else { return }
+        let sessionId = ensureActiveSession()
 
         let dataContext = formatReadingsForContext()
 
@@ -279,7 +285,7 @@ struct AIAssistantView: View {
 
         let fullContent = "以下是用户的血压测量记录:\n\(dataContext)\n\n请分析血压趋势，指出是否有异常，并给出健康建议。"
         let messages = [
-            ChatMessage(role: .system, content: "你是一个专业的健康助手，擅长分析血压数据。请用中文回答。注意：你的分析仅供参考，不构成医疗建议。"),
+            ChatMessage(role: .system, content: Self.systemPrompt),
             ChatMessage(role: .user, content: fullContent)
         ]
 
@@ -292,21 +298,27 @@ struct AIAssistantView: View {
 
         streamTask?.cancel()
         streamTask = Task {
+            var buffer = ""
+            var chunkCount = 0
             do {
                 for try await chunk in llmService.streamChat(messages: messages) {
                     if Task.isCancelled { break }
-                    await MainActor.run {
-                        streamingContent += chunk
+                    buffer += chunk
+                    chunkCount += 1
+                    if chunkCount % 5 == 0 {
+                        let snapshot = buffer
+                        await MainActor.run { streamingContent = snapshot }
                     }
                 }
                 if !Task.isCancelled {
+                    let finalContent = buffer
                     await MainActor.run {
+                        streamingContent = ""
                         let assistantMessage = ChatMessage(
                             role: .assistant,
-                            content: streamingContent
+                            content: finalContent
                         )
                         chatStore.addMessage(assistantMessage, toSessionId: sessionId)
-                        streamingContent = ""
                         isStreaming = false
                     }
                 }
@@ -326,10 +338,7 @@ struct AIAssistantView: View {
 
     private func buildMessagesForAPI(userContent: String, sessionId: UUID) -> [ChatMessage] {
         var messages: [ChatMessage] = [
-            ChatMessage(
-                role: .system,
-                content: "你是一个专业的健康助手，擅长血压相关的健康问题。请用中文回答。注意：你的回答仅供参考，不构成医疗建议。"
-            )
+            ChatMessage(role: .system, content: Self.systemPrompt)
         ]
         if let session = chatStore.sessions.first(where: { $0.id == sessionId }) {
             let recentMessages = session.messages.suffix(10)
@@ -361,11 +370,7 @@ struct AIAssistantView: View {
     }
 
     private func sessionDateString(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        formatter.locale = Locale(identifier: "zh_CN")
-        return formatter.string(from: date)
+        Self.sessionDateFormatter.string(from: date)
     }
 }
 

@@ -6,10 +6,10 @@ final class LLMService: ObservableObject {
         didSet { saveConfig() }
     }
 
-    private let configKey = "llm_config"
+    private static let configKey = "llm_config"
 
     init() {
-        if let data = UserDefaults.standard.data(forKey: "llm_config"),
+        if let data = UserDefaults.standard.data(forKey: Self.configKey),
            let saved = try? JSONDecoder().decode(LLMConfig.self, from: data) {
             self.config = saved
         } else {
@@ -19,7 +19,7 @@ final class LLMService: ObservableObject {
 
     private func saveConfig() {
         if let data = try? JSONEncoder().encode(config) {
-            UserDefaults.standard.set(data, forKey: configKey)
+            UserDefaults.standard.set(data, forKey: Self.configKey)
         }
     }
 
@@ -96,7 +96,8 @@ final class LLMService: ObservableObject {
                        httpResponse.statusCode != 200 {
                         var errorBody = ""
                         for try await line in bytes.lines {
-                            errorBody += line
+                            errorBody += line + "\n"
+                            if errorBody.count > 1024 { break }
                         }
                         continuation.finish(throwing: LLMError.apiError(httpResponse.statusCode, errorBody))
                         return
@@ -130,24 +131,13 @@ final class LLMService: ObservableObject {
     // MARK: - Validation
 
     func validateConfig() async throws -> Bool {
-        guard config.isConfigured else { throw LLMError.notConfigured }
-        guard let url = config.chatCompletionsURL else { throw LLMError.invalidURL }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        if !config.apiKey.isEmpty {
-            request.setValue("Bearer \(config.apiKey)", forHTTPHeaderField: "Authorization")
-        }
-        request.timeoutInterval = 10
-
-        let body: [String: Any] = [
-            "model": config.modelName,
-            "messages": [["role": "user", "content": "hi"]],
-            "max_tokens": 1,
-            "stream": false
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        let probeMessages = [ChatMessage(role: .user, content: "hi")]
+        var body: [String: Any] = (try? JSONSerialization.jsonObject(
+            with: buildRequestBody(messages: probeMessages, stream: false)
+        ) as? [String: Any]) ?? [:]
+        body["max_tokens"] = 1
+        let bodyData = (try? JSONSerialization.data(withJSONObject: body)) ?? Data()
+        let request = try buildURLRequest(body: bodyData, timeout: 10)
 
         let (_, response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse else {
