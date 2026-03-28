@@ -19,6 +19,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("拍照", systemImage: "camera.fill")
                 }
+            AIAssistantView()
+                .tabItem {
+                    Label("AI 助手", systemImage: "brain")
+                }
             ReportsView()
                 .tabItem {
                     Label("报告", systemImage: "doc.plaintext")
@@ -35,5 +39,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(MeasurementStore())
+            .environmentObject(LLMService())
+            .environmentObject(ChatStore())
     }
 }
