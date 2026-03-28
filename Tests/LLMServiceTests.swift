@@ -54,8 +54,13 @@ final class LLMServiceTests: XCTestCase {
     func testParseSSELine() {
         let service = LLMService()
 
+        // With space after data:
         let line1 = "data: {\"choices\":[{\"delta\":{\"content\":\"Hello\"}}]}"
         XCTAssertEqual(service.parseSSELine(line1), "Hello")
+
+        // Without space after data: (some servers like Ollama)
+        let line1b = "data:{\"choices\":[{\"delta\":{\"content\":\"Hello\"}}]}"
+        XCTAssertEqual(service.parseSSELine(line1b), "Hello")
 
         let line2 = "data: {\"choices\":[{\"delta\":{}}]}"
         XCTAssertNil(service.parseSSELine(line2))
@@ -65,6 +70,10 @@ final class LLMServiceTests: XCTestCase {
 
         let line4 = "event: message"
         XCTAssertNil(service.parseSSELine(line4))
+
+        // Empty data line
+        let line5 = "data:"
+        XCTAssertNil(service.parseSSELine(line5))
     }
 
     func testServiceNotConfiguredThrows() async {

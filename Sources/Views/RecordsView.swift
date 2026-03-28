@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RecordsView: View {
     @EnvironmentObject private var store: MeasurementStore
+    @EnvironmentObject private var llmService: LLMService
     @State private var selectedCategory: MeasurementCategory = .bloodPressure
     @State private var showAddSheet = false
 
@@ -44,6 +45,7 @@ struct RecordsView: View {
                 NavigationView {
                     ManualEntryView(existingReading: nil)
                         .environmentObject(store)
+                        .environmentObject(llmService)
                 }
             }
         }
@@ -125,6 +127,7 @@ struct ReadingRowView: View {
 
 struct ReadingDetailView: View {
     @EnvironmentObject private var store: MeasurementStore
+    @EnvironmentObject private var llmService: LLMService
     @Environment(\.dismiss) private var dismiss
     let reading: BloodPressureReading
     @State private var showEdit = false
@@ -171,6 +174,7 @@ struct ReadingDetailView: View {
             NavigationView {
                 ManualEntryView(existingReading: reading)
                     .environmentObject(store)
+                    .environmentObject(llmService)
             }
         }
     }

@@ -56,6 +56,9 @@ struct AIAssistantView: View {
                     currentSessionId = first.id
                 }
             }
+            .onDisappear {
+                streamTask?.cancel()
+            }
         }
     }
 
@@ -299,16 +302,12 @@ struct AIAssistantView: View {
         streamTask?.cancel()
         streamTask = Task {
             var buffer = ""
-            var chunkCount = 0
             do {
                 for try await chunk in llmService.streamChat(messages: messages) {
                     if Task.isCancelled { break }
                     buffer += chunk
-                    chunkCount += 1
-                    if chunkCount % 5 == 0 {
-                        let snapshot = buffer
-                        await MainActor.run { streamingContent = snapshot }
-                    }
+                    let snapshot = buffer
+                    await MainActor.run { streamingContent = snapshot }
                 }
                 if !Task.isCancelled {
                     let finalContent = buffer

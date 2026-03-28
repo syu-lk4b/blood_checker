@@ -188,9 +188,9 @@ struct ManualEntryView: View {
                 if let data = jsonString.data(using: .utf8),
                    let parsed = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
                     await MainActor.run {
-                        if let sys = parsed["systolic"] as? Int { reading.systolic = sys }
-                        if let dia = parsed["diastolic"] as? Int { reading.diastolic = dia }
-                        if let hr = parsed["heartRate"] as? Int { reading.heartRate = hr }
+                        if let sys = (parsed["systolic"] as? NSNumber)?.intValue { reading.systolic = sys }
+                        if let dia = (parsed["diastolic"] as? NSNumber)?.intValue { reading.diastolic = dia }
+                        if let hr = (parsed["heartRate"] as? NSNumber)?.intValue { reading.heartRate = hr }
                         isRecognizing = false
                     }
                 } else {

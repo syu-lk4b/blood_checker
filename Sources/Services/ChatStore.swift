@@ -62,10 +62,11 @@ final class ChatStore: ObservableObject {
     }
 
     private func persist() {
+        let snapshot = sessions
         queue.async { [weak self] in
             guard let self else { return }
             do {
-                let data = try JSONEncoder().encode(self.sessions)
+                let data = try JSONEncoder().encode(snapshot)
                 try data.write(to: self.fileURL, options: .atomic)
             } catch {
                 assertionFailure("Failed to save chat sessions: \(error)")

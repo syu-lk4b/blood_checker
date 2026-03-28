@@ -68,9 +68,9 @@ final class LLMService: ObservableObject {
     // MARK: - SSE Parsing
 
     func parseSSELine(_ line: String) -> String? {
-        guard line.hasPrefix("data: ") else { return nil }
-        let jsonString = String(line.dropFirst(6))
-        guard jsonString != "[DONE]" else { return nil }
+        guard line.hasPrefix("data:") else { return nil }
+        let jsonString = String(line.dropFirst(5)).trimmingCharacters(in: .whitespaces)
+        guard !jsonString.isEmpty, jsonString != "[DONE]" else { return nil }
         guard let data = jsonString.data(using: .utf8),
               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               let choices = json["choices"] as? [[String: Any]],
