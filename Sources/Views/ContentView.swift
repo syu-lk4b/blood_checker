@@ -23,13 +23,9 @@ struct ContentView: View {
                 .tabItem {
                     Label("AI 助手", systemImage: "brain")
                 }
-            ReportsView()
+            MoreView()
                 .tabItem {
-                    Label("报告", systemImage: "doc.plaintext")
-                }
-            SettingsView()
-                .tabItem {
-                    Label("设置", systemImage: "gearshape")
+                    Label("更多", systemImage: "ellipsis")
                 }
         }
     }

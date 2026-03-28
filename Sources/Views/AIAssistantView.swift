@@ -372,13 +372,3 @@ struct AIAssistantView: View {
         Self.sessionDateFormatter.string(from: date)
     }
 }
-
-/// Wrapper to embed LLMSettingsView inside a Form for NavigationLink usage
-private struct LLMSettingsFormView: View {
-    var body: some View {
-        Form {
-            LLMSettingsView()
-        }
-        .navigationTitle("AI 设置")
-    }
-}
