@@ -27,6 +27,7 @@
 		9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */; };
 		AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */; };
 		AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */; };
+		B667469FA12C4F14017A087D /* HealthKitSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA109D93102A98E456B6FD8 /* HealthKitSettingsView.swift */; };
 		BAC130F2BAEA4FFBEB5C195A /* HealthKitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693272CDE151610F9251DC5D /* HealthKitServiceTests.swift */; };
 		BB6ED88B2DD73E92F2A0A8E6 /* BloodPressureCamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */; };
 		BB8133BFFE2D3C58AD67D829 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B0F0F56BF7B60CA47EB8F9 /* ChatMessage.swift */; };
@@ -60,6 +61,7 @@
 		07CECEDFC596593543B91AA5 /* DateRangeOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeOption.swift; sourceTree = "<group>"; };
 		096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureEntryView.swift; sourceTree = "<group>"; };
 		0B1F984A2F8ED188570A7C13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0EA109D93102A98E456B6FD8 /* HealthKitSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSettingsView.swift; sourceTree = "<group>"; };
 		1470FFB0FCC740193E449F84 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
 		150C158114A8BE19D5226858 /* BloodPressureReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureReading.swift; sourceTree = "<group>"; };
 		33357441BF6E181B1C8BCECD /* ReportMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMetrics.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */,
 				9F5A2650D63508C3F60CC25F /* ChatBubbleView.swift */,
 				85AB55E7E07D245DD98AB533 /* ContentView.swift */,
+				0EA109D93102A98E456B6FD8 /* HealthKitSettingsView.swift */,
 				506027064A26861FCA64F707 /* LLMSettingsView.swift */,
 				4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */,
 				55575B31630EE77F73BFD5D3 /* ProviderEditView.swift */,
@@ -347,6 +350,7 @@
 				55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */,
 				FEA5D6C1F23E5767B37FE79E /* DateRangeOption.swift in Sources */,
 				C82A19F5BF6A15E9576E0A72 /* HealthKitService.swift in Sources */,
+				B667469FA12C4F14017A087D /* HealthKitSettingsView.swift in Sources */,
 				AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */,
 				BD1122D3B0658A6914DAC7DA /* LLMService.swift in Sources */,
 				8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */,
