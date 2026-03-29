@@ -8,6 +8,7 @@ final class MeasurementStore: ObservableObject {
     private let fileURL: URL
     private let queue = DispatchQueue(label: "MeasurementStore", qos: .userInitiated)
     private let photoStorage: PhotoStorage
+    var healthKitService: HealthKitService?
 
     init(fileManager: FileManager = .default, baseURL: URL? = nil) {
         let directory: URL
@@ -31,6 +32,10 @@ final class MeasurementStore: ObservableObject {
             DispatchQueue.main.async {
                 self.readings.append(mutableReading)
                 self.persist()
+                if let hk = self.healthKitService {
+                    let readingToSync = mutableReading
+                    Task { await hk.saveBloodPressure(readingToSync) }
+                }
             }
         }
     }
@@ -57,6 +62,9 @@ final class MeasurementStore: ObservableObject {
             try? photoStorage.removeImage(named: file)
         }
         persist()
+        if let hk = healthKitService {
+            Task { await hk.deleteBloodPressure(reading) }
+        }
     }
 
     func image(for reading: BloodPressureReading) -> UIImage? {
