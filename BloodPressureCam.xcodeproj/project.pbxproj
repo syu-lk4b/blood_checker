@@ -27,12 +27,14 @@
 		9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */; };
 		AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */; };
 		AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */; };
+		BAC130F2BAEA4FFBEB5C195A /* HealthKitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693272CDE151610F9251DC5D /* HealthKitServiceTests.swift */; };
 		BB6ED88B2DD73E92F2A0A8E6 /* BloodPressureCamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */; };
 		BB8133BFFE2D3C58AD67D829 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B0F0F56BF7B60CA47EB8F9 /* ChatMessage.swift */; };
 		BD0A8071A28F7C7C6BBDA752 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1470FFB0FCC740193E449F84 /* RecordsView.swift */; };
 		BD1122D3B0658A6914DAC7DA /* LLMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6012EC813DBA6690C0 /* LLMService.swift */; };
 		C48DC6BF093EC7E79FC57BBD /* MeasurementStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A78D6A434F29AAA2166007 /* MeasurementStore.swift */; };
 		C7368AE7DC5E62BB0A89D91A /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */; };
+		C82A19F5BF6A15E9576E0A72 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3413E91C3E563E192D0B67 /* HealthKitService.swift */; };
 		C856D57E15686831241A0B2E /* LLMServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0A8937E8F1CE2B8B89937 /* LLMServiceTests.swift */; };
 		CBEA96CD5C38D9815F75D487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0486D5D67DCE003CD70EAC1 /* Assets.xcassets */; };
 		DB03936143CA7D36AE4C1E89 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B26640D987CC1AFEE6F296 /* StatisticsView.swift */; };
@@ -69,6 +71,8 @@
 		55575B31630EE77F73BFD5D3 /* ProviderEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderEditView.swift; sourceTree = "<group>"; };
 		5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
 		5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		693272CDE151610F9251DC5D /* HealthKitServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceTests.swift; sourceTree = "<group>"; };
+		6D3413E91C3E563E192D0B67 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureCamApp.swift; sourceTree = "<group>"; };
 		8026A4D6A1C35AA69CB53516 /* ReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGenerator.swift; sourceTree = "<group>"; };
 		81593B5B01EBE3CD0C01C081 /* ProviderConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderConfig.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				072A3C41D268E9E599A593DC /* ChatStoreTests.swift */,
+				693272CDE151610F9251DC5D /* HealthKitServiceTests.swift */,
 				B3391F39EDB137B286615478 /* LLMConfigTests.swift */,
 				DDE0A8937E8F1CE2B8B89937 /* LLMServiceTests.swift */,
 				B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */,
@@ -188,6 +193,7 @@
 			children = (
 				D452172D031FF98B6B8A2F25 /* AIProvider.swift */,
 				FB8446036EC4A5FA78457B23 /* ChatStore.swift */,
+				6D3413E91C3E563E192D0B67 /* HealthKitService.swift */,
 				8FA50D6012EC813DBA6690C0 /* LLMService.swift */,
 				D8A78D6A434F29AAA2166007 /* MeasurementStore.swift */,
 				D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */,
@@ -317,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26DAE3AB889D21043B4B3FD4 /* ChatStoreTests.swift in Sources */,
+				BAC130F2BAEA4FFBEB5C195A /* HealthKitServiceTests.swift in Sources */,
 				FD3DF97C6DFFA3D49B860698 /* LLMConfigTests.swift in Sources */,
 				C856D57E15686831241A0B2E /* LLMServiceTests.swift in Sources */,
 				AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */,
@@ -339,6 +346,7 @@
 				C7368AE7DC5E62BB0A89D91A /* Color+Hex.swift in Sources */,
 				55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */,
 				FEA5D6C1F23E5767B37FE79E /* DateRangeOption.swift in Sources */,
+				C82A19F5BF6A15E9576E0A72 /* HealthKitService.swift in Sources */,
 				AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */,
 				BD1122D3B0658A6914DAC7DA /* LLMService.swift in Sources */,
 				8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */,
