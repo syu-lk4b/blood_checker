@@ -2,95 +2,80 @@ import XCTest
 @testable import BloodPressureCam
 
 final class LLMServiceTests: XCTestCase {
-    func testBuildChatRequestBody() throws {
-        let service = LLMService()
-        service.config = LLMConfig(
-            baseURL: "http://localhost:11211/api/openai/v1",
-            apiKey: "test-key",
-            modelName: "gpt-4o"
-        )
-
-        let messages = [
-            ChatMessage(role: .system, content: "You are a helpful assistant."),
-            ChatMessage(role: .user, content: "Hello")
-        ]
-
-        let body = service.buildRequestBody(messages: messages, stream: true)
-        let json = try JSONSerialization.jsonObject(with: body) as! [String: Any]
-
-        XCTAssertEqual(json["model"] as? String, "gpt-4o")
-        XCTAssertEqual(json["stream"] as? Bool, true)
-
-        let msgs = json["messages"] as! [[String: Any]]
-        XCTAssertEqual(msgs.count, 2)
-        XCTAssertEqual(msgs[0]["role"] as? String, "system")
-        XCTAssertEqual(msgs[1]["role"] as? String, "user")
-        XCTAssertEqual(msgs[1]["content"] as? String, "Hello")
-    }
-
-    func testBuildVisionRequestBody() throws {
-        let service = LLMService()
-        service.config = LLMConfig(
-            baseURL: "http://localhost:11211/api/openai/v1",
-            apiKey: "",
-            modelName: "gpt-4o"
-        )
-
-        let imageData = "fake-image-data".data(using: .utf8)!
-        let messages = [
-            ChatMessage(role: .user, content: "What is this?", imageData: imageData)
-        ]
-
-        let body = service.buildRequestBody(messages: messages, stream: false)
-        let json = try JSONSerialization.jsonObject(with: body) as! [String: Any]
-        let msgs = json["messages"] as! [[String: Any]]
-        let content = msgs[0]["content"] as! [[String: Any]]
-
-        XCTAssertEqual(content.count, 2)
-        XCTAssertEqual(content[0]["type"] as? String, "text")
-        XCTAssertEqual(content[1]["type"] as? String, "image_url")
-    }
-
-    func testParseSSELine() {
-        let service = LLMService()
-
-        // With space after data:
+    func testSSEParseContentDelta() {
         let line1 = "data: {\"choices\":[{\"delta\":{\"content\":\"Hello\"}}]}"
-        XCTAssertEqual(service.parseSSELine(line1), "Hello")
+        XCTAssertEqual(SSEStreamParser.parseContentDelta(from: line1), "Hello")
 
-        // Without space after data: (some servers like Ollama)
+        // Without space after data:
         let line1b = "data:{\"choices\":[{\"delta\":{\"content\":\"Hello\"}}]}"
-        XCTAssertEqual(service.parseSSELine(line1b), "Hello")
+        XCTAssertEqual(SSEStreamParser.parseContentDelta(from: line1b), "Hello")
 
         let line2 = "data: {\"choices\":[{\"delta\":{}}]}"
-        XCTAssertNil(service.parseSSELine(line2))
+        XCTAssertNil(SSEStreamParser.parseContentDelta(from: line2))
 
         let line3 = "data: [DONE]"
-        XCTAssertNil(service.parseSSELine(line3))
+        XCTAssertNil(SSEStreamParser.parseContentDelta(from: line3))
 
         let line4 = "event: message"
-        XCTAssertNil(service.parseSSELine(line4))
+        XCTAssertNil(SSEStreamParser.parseContentDelta(from: line4))
 
-        // Empty data line
         let line5 = "data:"
-        XCTAssertNil(service.parseSSELine(line5))
+        XCTAssertNil(SSEStreamParser.parseContentDelta(from: line5))
     }
 
-    func testServiceNotConfiguredThrows() async {
-        let service = LLMService()
-        service.config = LLMConfig(baseURL: "", apiKey: "", modelName: "")
+    func testSSEParseClaudeDelta() {
+        let line = "data: {\"type\":\"content_block_delta\",\"delta\":{\"text\":\"World\"}}"
+        XCTAssertEqual(SSEStreamParser.parseClaudeContentDelta(from: line), "World")
 
-        do {
-            _ = try await service.validateConfig()
-            XCTFail("Should have thrown")
-        } catch let error as LLMError {
-            if case .notConfigured = error {
-                // expected
-            } else {
-                XCTFail("Wrong error: \(error)")
-            }
-        } catch {
-            XCTFail("Unexpected error type: \(error)")
-        }
+        let nonDelta = "data: {\"type\":\"message_start\"}"
+        XCTAssertNil(SSEStreamParser.parseClaudeContentDelta(from: nonDelta))
+    }
+
+    func testProviderConfigIsConfigured() {
+        // Ollama doesn't need API key
+        let ollama = ProviderConfig(
+            name: "Test Ollama", type: .ollama,
+            baseURL: "http://localhost:11434", modelName: "llama3"
+        )
+        XCTAssertTrue(ollama.isConfigured)
+
+        // Empty config
+        let empty = ProviderConfig(
+            name: "Empty", type: .openaiCompatible,
+            baseURL: "", modelName: ""
+        )
+        XCTAssertFalse(empty.isConfigured)
+    }
+
+    func testProviderConfigCodable() throws {
+        let config = ProviderConfig(
+            name: "DeepSeek", type: .openaiCompatible,
+            baseURL: "https://api.deepseek.com", modelName: "deepseek-chat"
+        )
+        let data = try JSONEncoder().encode(config)
+        let decoded = try JSONDecoder().decode(ProviderConfig.self, from: data)
+        XCTAssertEqual(decoded.name, "DeepSeek")
+        XCTAssertEqual(decoded.type, .openaiCompatible)
+        XCTAssertEqual(decoded.modelName, "deepseek-chat")
+    }
+
+    func testBuiltInProvidersExist() {
+        let providers = ProviderConfig.builtInProviders
+        XCTAssertTrue(providers.count >= 6)
+
+        let names = providers.map(\.name)
+        XCTAssertTrue(names.contains("DeepSeek"))
+        XCTAssertTrue(names.contains("Kimi (月之暗面)"))
+        XCTAssertTrue(names.contains("通义千问"))
+    }
+
+    func testMakeProviderOllama() {
+        let config = ProviderConfig(
+            name: "Test", type: .ollama,
+            baseURL: "http://localhost:11434", modelName: "llama3"
+        )
+        let provider = makeProvider(from: config)
+        XCTAssertNotNil(provider)
+        XCTAssertFalse(provider!.supportsVision)
     }
 }
