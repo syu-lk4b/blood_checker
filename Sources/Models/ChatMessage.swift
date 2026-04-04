@@ -13,6 +13,10 @@ struct ChatMessage: Identifiable, Codable, Equatable {
     let imageData: Data?
     let timestamp: Date
 
+    private enum CodingKeys: String, CodingKey {
+        case id, role, content, timestamp
+    }
+
     init(
         id: UUID = UUID(),
         role: MessageRole,
@@ -25,6 +29,15 @@ struct ChatMessage: Identifiable, Codable, Equatable {
         self.content = content
         self.imageData = imageData
         self.timestamp = timestamp
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        role = try container.decode(MessageRole.self, forKey: .role)
+        content = try container.decode(String.self, forKey: .content)
+        timestamp = try container.decode(Date.self, forKey: .timestamp)
+        imageData = nil
     }
 }
 

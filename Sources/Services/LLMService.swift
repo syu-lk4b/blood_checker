@@ -21,6 +21,7 @@ final class LLMService: ObservableObject {
         if let data = try? JSONEncoder().encode(config) {
             UserDefaults.standard.set(data, forKey: Self.configKey)
         }
+        KeychainHelper.save(config.apiKey, forKey: "llm_api_key")
     }
 
     // MARK: - Request Building

@@ -11,8 +11,18 @@ final class LLMConfigTests: XCTestCase {
         let data = try JSONEncoder().encode(config)
         let decoded = try JSONDecoder().decode(LLMConfig.self, from: data)
         XCTAssertEqual(decoded.baseURL, config.baseURL)
-        XCTAssertEqual(decoded.apiKey, config.apiKey)
         XCTAssertEqual(decoded.modelName, config.modelName)
+        // apiKey is stored in Keychain, not in JSON — decoded value comes from Keychain
+        // In test environment without prior Keychain write, it should be empty
+        XCTAssertEqual(decoded.apiKey, "")
+    }
+
+    func testLLMConfigApiKeyViaKeychain() {
+        KeychainHelper.save("secret-key", forKey: "llm_api_key")
+        let data = try! JSONEncoder().encode(LLMConfig(baseURL: "http://test", modelName: "m"))
+        let decoded = try! JSONDecoder().decode(LLMConfig.self, from: data)
+        XCTAssertEqual(decoded.apiKey, "secret-key")
+        KeychainHelper.delete(forKey: "llm_api_key")
     }
 
     func testLLMConfigIsConfiguredTrue() {

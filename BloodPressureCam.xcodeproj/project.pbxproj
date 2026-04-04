@@ -21,6 +21,7 @@
 		75472122175D21ABDED30DA3 /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8446036EC4A5FA78457B23 /* ChatStore.swift */; };
 		8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506027064A26861FCA64F707 /* LLMSettingsView.swift */; };
 		9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */; };
+		AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */; };
 		AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */; };
 		BB6ED88B2DD73E92F2A0A8E6 /* BloodPressureCamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */; };
 		BB8133BFFE2D3C58AD67D829 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B0F0F56BF7B60CA47EB8F9 /* ChatMessage.swift */; };
@@ -63,6 +64,7 @@
 		4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
 		506027064A26861FCA64F707 /* LLMSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMSettingsView.swift; sourceTree = "<group>"; };
 		5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
+		5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureCamApp.swift; sourceTree = "<group>"; };
 		8026A4D6A1C35AA69CB53516 /* ReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGenerator.swift; sourceTree = "<group>"; };
 		81CEB34E359F27DDA283F9BF /* AIAssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssistantView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */,
 				07CECEDFC596593543B91AA5 /* DateRangeOption.swift */,
+				5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */,
 				33357441BF6E181B1C8BCECD /* ReportMetrics.swift */,
 			);
 			path = Utilities;
@@ -292,6 +295,7 @@
 				C7368AE7DC5E62BB0A89D91A /* Color+Hex.swift in Sources */,
 				55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */,
 				FEA5D6C1F23E5767B37FE79E /* DateRangeOption.swift in Sources */,
+				AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */,
 				13F9A722D5D029F00F51012F /* LLMConfig.swift in Sources */,
 				BD1122D3B0658A6914DAC7DA /* LLMService.swift in Sources */,
 				8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */,

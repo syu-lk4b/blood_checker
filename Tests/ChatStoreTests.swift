@@ -53,9 +53,16 @@ final class ChatStoreTests: XCTestCase {
         let msg = ChatMessage(role: .user, content: "Persisted")
         store1.addMessage(msg, toSessionId: session.id)
 
+        // Wait for async persist to complete
+        let expectation = expectation(description: "persist")
+        DispatchQueue(label: "test-wait", qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 2)
+
         let store2 = ChatStore(baseURL: tempDirectory)
         XCTAssertEqual(store2.sessions.count, 1)
-        XCTAssertEqual(store2.sessions[0].messages[0].content, "Persisted")
+        XCTAssertEqual(store2.sessions[0].messages.first?.content, "Persisted")
     }
 
     func testUpdateSessionTitle() {

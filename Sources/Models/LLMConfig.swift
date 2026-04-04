@@ -5,6 +5,29 @@ struct LLMConfig: Codable, Equatable {
     var apiKey: String = ""
     var modelName: String = ""
 
+    private enum CodingKeys: String, CodingKey {
+        case baseURL, modelName
+    }
+
+    init(baseURL: String = "", apiKey: String = "", modelName: String = "") {
+        self.baseURL = baseURL
+        self.apiKey = apiKey
+        self.modelName = modelName
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        baseURL = try container.decodeIfPresent(String.self, forKey: .baseURL) ?? ""
+        modelName = try container.decodeIfPresent(String.self, forKey: .modelName) ?? ""
+        apiKey = KeychainHelper.load(forKey: "llm_api_key") ?? ""
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(baseURL, forKey: .baseURL)
+        try container.encode(modelName, forKey: .modelName)
+    }
+
     var isConfigured: Bool {
         !baseURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && !modelName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty

@@ -276,10 +276,10 @@ struct AIAssistantView: View {
             fullContent = "以下是我的血压数据:\n\(dataContext)\n\n我的问题是: \(text)"
         }
 
-        let userMessage = ChatMessage(role: .user, content: text)
+        let userMessage = ChatMessage(role: .user, content: fullContent)
         chatStore.addMessage(userMessage, toSessionId: sessionId)
 
-        let allMessages = buildMessagesForAPI(userContent: fullContent, sessionId: sessionId)
+        let allMessages = buildMessagesForAPI(sessionId: sessionId)
         inputText = ""
         attachData = false
 
@@ -309,6 +309,14 @@ struct AIAssistantView: View {
 
         streamTask?.cancel()
         streamTask = Task {
+            defer {
+                Task { @MainActor in
+                    if isStreaming {
+                        isStreaming = false
+                        streamingContent = ""
+                    }
+                }
+            }
             var buffer = ""
             do {
                 for try await chunk in llmService.streamChat(messages: messages) {
@@ -343,20 +351,13 @@ struct AIAssistantView: View {
         }
     }
 
-    private func buildMessagesForAPI(userContent: String, sessionId: UUID) -> [ChatMessage] {
+    private func buildMessagesForAPI(sessionId: UUID) -> [ChatMessage] {
         var messages: [ChatMessage] = [
             ChatMessage(role: .system, content: Self.systemPrompt)
         ]
         if let session = chatStore.sessions.first(where: { $0.id == sessionId }) {
             let recentMessages = session.messages.suffix(10)
             messages.append(contentsOf: recentMessages.filter { $0.role != .system })
-        }
-        if let lastIndex = messages.lastIndex(where: { $0.role == .user }) {
-            messages[lastIndex] = ChatMessage(
-                role: .user,
-                content: userContent,
-                timestamp: messages[lastIndex].timestamp
-            )
         }
         return messages
     }
