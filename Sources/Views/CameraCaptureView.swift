@@ -67,15 +67,19 @@ struct PhotoAuthorizationView<Content: View>: View {
                             }
                         }
                     }
+                    .accessibilityHint("授权应用使用相机")
                 }
             case .denied, .restricted:
                 VStack(spacing: 16) {
                     Image(systemName: "camera.fill")
                         .font(.system(size: 48))
                         .foregroundColor(.accentColor)
+                        .accessibilityHidden(true)
                     Text("请在系统设置中开启相机权限")
                         .font(.headline)
-                    Link("前往设置", destination: URL(string: UIApplication.openSettingsURLString)!)
+                    if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                        Link("前往设置", destination: settingsURL)
+                    }
                 }
             @unknown default:
                 content()

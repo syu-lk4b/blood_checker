@@ -44,6 +44,8 @@ struct LLMSettingsView: View {
                 }
             }
             .disabled(!llmService.config.isConfigured)
+            .accessibilityLabel("测试连接")
+            .accessibilityHint("验证 AI 服务配置是否正确")
 
             if case .failure(let message) = validationState {
                 Text(message)

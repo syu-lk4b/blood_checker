@@ -69,7 +69,7 @@ final class ChatStore: ObservableObject {
                 let data = try JSONEncoder().encode(snapshot)
                 try data.write(to: self.fileURL, options: .atomic)
             } catch {
-                assertionFailure("Failed to save chat sessions: \(error)")
+                print("Failed to save chat sessions: \(error)")
             }
         }
     }

@@ -23,5 +23,6 @@ targets:
     settings:
       TEST_HOST: "$(BUILT_PRODUCTS_DIR)/BloodPressureCam.app/BloodPressureCam"
       BUNDLE_LOADER: "$(TEST_HOST)"
+      GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: BloodPressureCam

@@ -93,7 +93,7 @@ final class MeasurementStore: ObservableObject {
                 let encoded = try JSONEncoder().encode(self.readings)
                 try encoded.write(to: self.fileURL, options: .atomic)
             } catch {
-                assertionFailure("Failed to save readings: \(error)")
+                print("Failed to save readings: \(error)")
             }
         }
     }

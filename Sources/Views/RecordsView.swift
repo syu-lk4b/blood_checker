@@ -38,6 +38,7 @@ struct RecordsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showAddSheet = true }) {
                         Image(systemName: "plus.circle.fill")
+                            .accessibilityLabel("添加记录")
                     }
                 }
             }
@@ -75,6 +76,8 @@ struct RecordsView: View {
                 .padding(.horizontal)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("暂无记录，点击右上角加号添加")
     }
 }
 
@@ -112,6 +115,8 @@ struct ReadingRowView: View {
             .font(.title3)
         }
         .padding(.vertical, 8)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(formatter.string(from: reading.recordedAt))，高压\(reading.systolic)，低压\(reading.diastolic)\(reading.heartRate.map { "，心率\($0)" } ?? "")，\(reading.level.title)")
     }
 
     private func metric(_ title: String, value: Int) -> some View {
@@ -140,6 +145,7 @@ struct ReadingDetailView: View {
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(12)
+                        .accessibilityLabel("血压计照片")
                 }
                 detailRow(title: "测量时间", value: reading.title)
                 detailRow(title: "高压", value: "\(reading.systolic) mmHg")
