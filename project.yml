@@ -11,6 +11,8 @@ targets:
       - path: Sources
     settings:
       INFO_PLIST_FILE: Sources/Info.plist
+      DEAD_CODE_STRIPPING: YES
+      ENABLE_USER_SCRIPT_SANDBOXING: YES
     resources:
       - path: Sources/Resources
   BloodPressureCamTests:

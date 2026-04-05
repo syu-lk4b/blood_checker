@@ -15,6 +15,7 @@
 		3EE70A372C32763315EE1B69 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */; };
 		55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AB55E7E07D245DD98AB533 /* ContentView.swift */; };
 		59B7B4F5F4FD7D2BEDE57D61 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */; };
+		5E5D55C960F31C7B817ACA51 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD90C16AF3FEC00448252E0 /* MoreView.swift */; };
 		604D87C4F4C70A3E9A2D016F /* CaptureEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */; };
 		6501357C5B52441DE9B3D9A9 /* PhotoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */; };
 		6D9F7DDA5F1E912BDC9E06EA /* ReportMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33357441BF6E181B1C8BCECD /* ReportMetrics.swift */; };
@@ -68,6 +69,7 @@
 		8FA50D6012EC813DBA6690C0 /* LLMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMService.swift; sourceTree = "<group>"; };
 		9F5A2650D63508C3F60CC25F /* ChatBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleView.swift; sourceTree = "<group>"; };
 		A5B0F0F56BF7B60CA47EB8F9 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		ABD90C16AF3FEC00448252E0 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		B3391F39EDB137B286615478 /* LLMConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMConfigTests.swift; sourceTree = "<group>"; };
 		B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementStoreTests.swift; sourceTree = "<group>"; };
 		D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorage.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				85AB55E7E07D245DD98AB533 /* ContentView.swift */,
 				506027064A26861FCA64F707 /* LLMSettingsView.swift */,
 				4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */,
+				ABD90C16AF3FEC00448252E0 /* MoreView.swift */,
 				1470FFB0FCC740193E449F84 /* RecordsView.swift */,
 				4EE02BADF7CF8410FE9FF742 /* ReportsView.swift */,
 				DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */,
@@ -294,6 +297,7 @@
 				8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */,
 				9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */,
 				C48DC6BF093EC7E79FC57BBD /* MeasurementStore.swift in Sources */,
+				5E5D55C960F31C7B817ACA51 /* MoreView.swift in Sources */,
 				6501357C5B52441DE9B3D9A9 /* PhotoStorage.swift in Sources */,
 				BD0A8071A28F7C7C6BBDA752 /* RecordsView.swift in Sources */,
 				13D917BB6DC6D9D3E8D94A05 /* ReportGenerator.swift in Sources */,
@@ -455,6 +459,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INFO_PLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -488,6 +494,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INFO_PLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
