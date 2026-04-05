@@ -2,151 +2,153 @@ import Foundation
 import UIKit
 
 final class LLMService: ObservableObject {
-    @Published var config: LLMConfig {
-        didSet { saveConfig() }
+    @Published var providers: [ProviderConfig] = []
+    @Published var activeProviderID: UUID?
+
+    private let fileURL: URL
+    private let queue = DispatchQueue(label: "LLMService", qos: .userInitiated)
+
+    var activeProvider: ProviderConfig? {
+        if let id = activeProviderID {
+            return providers.first { $0.id == id }
+        }
+        return providers.first { $0.isDefault && $0.isEnabled }
+            ?? providers.first { $0.isEnabled }
     }
 
-    private static let configKey = "llm_config"
+    var isConfigured: Bool {
+        activeProvider?.isConfigured ?? false
+    }
 
     init() {
-        if let data = UserDefaults.standard.data(forKey: Self.configKey),
-           let saved = try? JSONDecoder().decode(LLMConfig.self, from: data) {
-            self.config = saved
-        } else {
-            self.config = LLMConfig()
-        }
+        let directory = FileManager.default.urls(
+            for: .documentDirectory, in: .userDomainMask
+        ).first ?? URL(fileURLWithPath: NSTemporaryDirectory())
+        fileURL = directory.appendingPathComponent("ai-providers.json")
+        load()
+        seedBuiltInsIfNeeded()
     }
 
-    private func saveConfig() {
-        if let data = try? JSONEncoder().encode(config) {
-            UserDefaults.standard.set(data, forKey: Self.configKey)
-        }
-        KeychainHelper.save(config.apiKey, forKey: "llm_api_key")
+    // MARK: - Provider CRUD
+
+    func addProvider(_ config: ProviderConfig) {
+        providers.append(config)
+        persist()
     }
 
-    // MARK: - Request Building
-
-    func buildRequestBody(messages: [ChatMessage], stream: Bool) -> Data {
-        var msgArray: [[String: Any]] = []
-
-        for message in messages {
-            if let imageData = message.imageData {
-                let base64 = imageData.base64EncodedString()
-                let content: [[String: Any]] = [
-                    ["type": "text", "text": message.content],
-                    ["type": "image_url", "image_url": ["url": "data:image/jpeg;base64,\(base64)"]]
-                ]
-                msgArray.append(["role": message.role.rawValue, "content": content])
-            } else {
-                msgArray.append(["role": message.role.rawValue, "content": message.content])
-            }
-        }
-
-        let body: [String: Any] = [
-            "model": config.modelName,
-            "messages": msgArray,
-            "stream": stream
-        ]
-
-        return (try? JSONSerialization.data(withJSONObject: body)) ?? Data()
+    func updateProvider(_ config: ProviderConfig) {
+        guard let index = providers.firstIndex(where: { $0.id == config.id }) else { return }
+        providers[index] = config
+        persist()
     }
 
-    private func buildURLRequest(body: Data, timeout: TimeInterval) throws -> URLRequest {
-        guard config.isConfigured else { throw LLMError.notConfigured }
-        guard let url = config.chatCompletionsURL else { throw LLMError.invalidURL }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        if !config.apiKey.isEmpty {
-            request.setValue("Bearer \(config.apiKey)", forHTTPHeaderField: "Authorization")
-        }
-        request.httpBody = body
-        request.timeoutInterval = timeout
-        return request
+    func deleteProvider(_ id: UUID) {
+        guard let config = providers.first(where: { $0.id == id }) else { return }
+        guard !config.isBuiltIn else { return }
+        KeychainHelper.delete(key: "provider_\(id)")
+        providers.removeAll { $0.id == id }
+        persist()
     }
 
-    // MARK: - SSE Parsing
-
-    func parseSSELine(_ line: String) -> String? {
-        guard line.hasPrefix("data:") else { return nil }
-        let jsonString = String(line.dropFirst(5)).trimmingCharacters(in: .whitespaces)
-        guard !jsonString.isEmpty, jsonString != "[DONE]" else { return nil }
-        guard let data = jsonString.data(using: .utf8),
-              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let choices = json["choices"] as? [[String: Any]],
-              let delta = choices.first?["delta"] as? [String: Any],
-              let content = delta["content"] as? String else {
-            return nil
+    func setDefault(_ id: UUID) {
+        for i in providers.indices {
+            providers[i].isDefault = (providers[i].id == id)
         }
-        return content
+        persist()
     }
 
-    // MARK: - Streaming Chat
+    func setActiveProvider(_ id: UUID?) {
+        activeProviderID = id
+    }
+
+    // MARK: - Provider Factory
+
+    func makeActiveProvider() -> (any AIProvider)? {
+        guard let config = activeProvider else { return nil }
+        return makeProvider(from: config)
+    }
+
+    // MARK: - Streaming Chat (convenience)
 
     func streamChat(messages: [ChatMessage]) -> AsyncThrowingStream<String, Error> {
-        AsyncThrowingStream { continuation in
-            Task {
-                do {
-                    let body = buildRequestBody(messages: messages, stream: true)
-                    let request = try buildURLRequest(body: body, timeout: 60)
-
-                    let (bytes, response) = try await URLSession.shared.bytes(for: request)
-
-                    if let httpResponse = response as? HTTPURLResponse,
-                       httpResponse.statusCode != 200 {
-                        var errorBody = ""
-                        for try await line in bytes.lines {
-                            errorBody += line + "\n"
-                            if errorBody.count > 1024 { break }
-                        }
-                        continuation.finish(throwing: LLMError.apiError(httpResponse.statusCode, errorBody))
-                        return
-                    }
-
-                    for try await line in bytes.lines {
-                        if let content = parseSSELine(line) {
-                            continuation.yield(content)
-                        }
-                    }
-                    continuation.finish()
-                } catch let error as LLMError {
-                    continuation.finish(throwing: error)
-                } catch {
-                    continuation.finish(throwing: LLMError.networkError(error))
-                }
-            }
+        guard let provider = makeActiveProvider() else {
+            return AsyncThrowingStream { $0.finish(throwing: AIServiceError.notConfigured) }
         }
+
+        let tuples = messages.map { (role: $0.role.rawValue, content: $0.content) }
+        return provider.chatStream(messages: tuples, systemPrompt: nil)
     }
 
-    // MARK: - Vision (OCR)
-
     func analyzeImage(_ image: UIImage, prompt: String) -> AsyncThrowingStream<String, Error> {
-        guard let jpegData = image.jpegData(compressionQuality: 0.8) else {
-            return AsyncThrowingStream { $0.finish(throwing: LLMError.invalidResponse) }
+        guard let provider = makeActiveProvider() else {
+            return AsyncThrowingStream { $0.finish(throwing: AIServiceError.notConfigured) }
         }
-        let message = ChatMessage(role: .user, content: prompt, imageData: jpegData)
-        return streamChat(messages: [message])
+
+        if provider.supportsVision {
+            return AsyncThrowingStream { continuation in
+                Task {
+                    do {
+                        let result = try await provider.analyzeImage(image, prompt: prompt)
+                        continuation.yield(result)
+                        continuation.finish()
+                    } catch {
+                        continuation.finish(throwing: error)
+                    }
+                }
+            }
+        } else {
+            return AsyncThrowingStream { $0.finish(throwing: AIServiceError.visionNotSupported) }
+        }
     }
 
     // MARK: - Validation
 
-    func validateConfig() async throws -> Bool {
-        let probeMessages = [ChatMessage(role: .user, content: "hi")]
-        var body: [String: Any] = (try? JSONSerialization.jsonObject(
-            with: buildRequestBody(messages: probeMessages, stream: false)
-        ) as? [String: Any]) ?? [:]
-        body["max_tokens"] = 1
-        let bodyData = (try? JSONSerialization.data(withJSONObject: body)) ?? Data()
-        let request = try buildURLRequest(body: bodyData, timeout: 10)
-
-        let (_, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw LLMError.invalidResponse
+    func validateProvider(_ config: ProviderConfig) async throws -> Bool {
+        guard let provider = makeProvider(from: config) else {
+            throw AIServiceError.notConfigured
         }
-        if httpResponse.statusCode != 200 {
-            throw LLMError.apiError(httpResponse.statusCode, "Validation failed")
-        }
+        _ = try await provider.chat(
+            messages: [("user", "Hi")],
+            systemPrompt: nil
+        )
         return true
+    }
+
+    // MARK: - Persistence
+
+    private func seedBuiltInsIfNeeded() {
+        let existingNames = Set(providers.map(\.name))
+        var added = false
+        for builtIn in ProviderConfig.builtInProviders {
+            if !existingNames.contains(builtIn.name) {
+                providers.append(builtIn)
+                added = true
+            }
+        }
+        if added { persist() }
+    }
+
+    private func load() {
+        guard FileManager.default.fileExists(atPath: fileURL.path) else { return }
+        do {
+            let data = try Data(contentsOf: fileURL)
+            providers = try JSONDecoder().decode([ProviderConfig].self, from: data)
+        } catch {
+            print("Failed to load providers: \(error)")
+            providers = []
+        }
+    }
+
+    private func persist() {
+        let snapshot = providers
+        queue.async { [weak self] in
+            guard let self else { return }
+            do {
+                let data = try JSONEncoder().encode(snapshot)
+                try data.write(to: self.fileURL, options: .atomic)
+            } catch {
+                assertionFailure("Failed to save providers: \(error)")
+            }
+        }
     }
 }

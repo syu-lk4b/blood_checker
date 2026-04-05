@@ -50,5 +50,9 @@
     <string>需要使用相机拍摄血压计读数</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>需要访问相册以保存血压记录照片</string>
+    <key>NSHealthShareUsageDescription</key>
+    <string>读取您的血压和心率数据，用于在应用中查看和分析健康趋势。</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>将您记录的血压数据保存到健康应用，方便统一管理。</string>
 </dict>
 </plist>

@@ -18,7 +18,7 @@ struct AIAssistantView: View {
     var body: some View {
         NavigationView {
             Group {
-                if !llmService.config.isConfigured {
+                if !llmService.isConfigured {
                     notConfiguredView
                 } else {
                     chatView

@@ -9,10 +9,18 @@ targets:
     platform: iOS
     sources:
       - path: Sources
+    entitlements:
+      path: Sources/BloodPressureCam.entitlements
     settings:
       INFO_PLIST_FILE: Sources/Info.plist
       DEAD_CODE_STRIPPING: YES
       ENABLE_USER_SCRIPT_SANDBOXING: YES
+    attributes:
+      SystemCapabilities:
+        com.apple.HealthKit:
+          enabled: 1
+    dependencies:
+      - sdk: HealthKit.framework
     resources:
       - path: Sources/Resources
   BloodPressureCamTests:

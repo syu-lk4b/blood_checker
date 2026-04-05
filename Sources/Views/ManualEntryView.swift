@@ -171,7 +171,7 @@ struct ManualEntryView: View {
     }
 
     private func performOCR(on image: UIImage) {
-        guard llmService.config.isConfigured else { return }
+        guard llmService.isConfigured else { return }
 
         isRecognizing = true
         recognitionError = nil
@@ -203,7 +203,7 @@ struct ManualEntryView: View {
                         isRecognizing = false
                     }
                 }
-            } catch let error as LLMError {
+            } catch let error as AIServiceError {
                 await MainActor.run {
                     if case .visionNotSupported = error {
                         recognitionError = error.errorDescription

@@ -2,70 +2,70 @@ import SwiftUI
 
 struct LLMSettingsView: View {
     @EnvironmentObject private var llmService: LLMService
-    @State private var validationState: ValidationState = .idle
-
-    private enum ValidationState {
-        case idle
-        case testing
-        case success
-        case failure(String)
-    }
 
     var body: some View {
-        Section(header: Text("AI 设置")) {
-            TextField("API Base URL", text: $llmService.config.baseURL)
-                .textContentType(.URL)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .keyboardType(.URL)
-
-            SecureField("API Key（可选）", text: $llmService.config.apiKey)
-
-            TextField("模型名称", text: $llmService.config.modelName)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-
-            Button(action: testConnection) {
-                HStack {
-                    Text("测试连接")
-                    Spacer()
-                    switch validationState {
-                    case .idle:
-                        EmptyView()
-                    case .testing:
-                        ProgressView()
-                    case .success:
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                    case .failure:
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.red)
-                    }
+        Section(header: Text("AI 服务商")) {
+            ForEach(llmService.providers) { provider in
+                NavigationLink(destination: ProviderEditView(provider: provider)) {
+                    ProviderRowView(provider: provider)
                 }
             }
-            .disabled(!llmService.config.isConfigured)
-            .accessibilityLabel("测试连接")
-            .accessibilityHint("验证 AI 服务配置是否正确")
 
-            if case .failure(let message) = validationState {
-                Text(message)
-                    .font(.caption)
-                    .foregroundColor(.red)
+            Button(action: addCustomProvider) {
+                Label("添加自定义服务商", systemImage: "plus.circle")
             }
         }
     }
 
-    private func testConnection() {
-        validationState = .testing
-        Task {
-            do {
-                _ = try await llmService.validateConfig()
-                await MainActor.run { validationState = .success }
-            } catch {
-                await MainActor.run {
-                    validationState = .failure(error.localizedDescription)
+    private func addCustomProvider() {
+        let newProvider = ProviderConfig(
+            name: "自定义服务商",
+            type: .openaiCompatible,
+            baseURL: "",
+            modelName: ""
+        )
+        llmService.addProvider(newProvider)
+    }
+}
+
+struct ProviderRowView: View {
+    let provider: ProviderConfig
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: provider.type.iconName)
+                .font(.title3)
+                .foregroundColor(Color(provider.type.iconColor))
+                .frame(width: 32, height: 32)
+                .background(Color(provider.type.iconColor).opacity(0.12))
+                .cornerRadius(8)
+
+            VStack(alignment: .leading, spacing: 2) {
+                HStack {
+                    Text(provider.name)
+                        .font(.body)
+                    if provider.isDefault {
+                        Text("默认")
+                            .font(.caption2)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.blue.opacity(0.15))
+                            .foregroundColor(.blue)
+                            .cornerRadius(4)
+                    }
                 }
+                Text(provider.modelName)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
+
+            Spacer()
+
+            // Status indicator
+            Circle()
+                .fill(provider.isConfigured ? Color.green : Color.orange)
+                .frame(width: 8, height: 8)
         }
+        .padding(.vertical, 2)
     }
 }

@@ -9,6 +9,8 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
+            HealthKitSettingsView()
+
             Section(header: Text("通用")) {
                 Toggle("高血压提醒高亮", isOn: $shouldHighlightHighReadings)
                 Toggle("开启测量提醒", isOn: $reminderEnabled)

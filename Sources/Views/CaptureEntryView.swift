@@ -26,7 +26,7 @@ struct CaptureEntryView: View {
                 Text("拍照后可对识别出来的数据进行校准和补充")
                     .font(.footnote)
                     .foregroundColor(.secondary)
-                if llmService.config.isConfigured {
+                if llmService.isConfigured {
                     Text("AI 识别已启用")
                         .font(.caption)
                         .foregroundColor(.green)

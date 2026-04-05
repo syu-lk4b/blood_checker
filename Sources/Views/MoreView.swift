@@ -92,7 +92,7 @@ struct MoreView: View {
                 FeatureCardView(
                     icon: "🤖",
                     title: "AI 配置",
-                    subtitle: llmService.config.isConfigured ? "已连接" : "未配置",
+                    subtitle: llmService.isConfigured ? "已连接" : "未配置",
                     backgroundColor: Color(.systemPurple).opacity(0.1),
                     accentColor: .purple
                 )
