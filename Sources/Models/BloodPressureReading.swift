@@ -115,18 +115,12 @@ struct BloodPressureReading: Identifiable, Codable, Equatable {
     var geoLocation: CLLocationCoordinate2DCodable?
 
     var level: BloodPressureLevel {
-        switch (systolic, diastolic) {
-        case (..<120, ..<80):
-            return diastolic < 70 ? .optimal : .normal
-        case (120..<130, ..<80):
-            return .elevated
-        case (130..<140, 80..<90), (..<140, 80..<90):
-            return .hypertensionStage1
-        case (140..<180, 90..<120):
-            return .hypertensionStage2
-        default:
-            return .hypertensiveCrisis
-        }
+        if systolic >= 180 || diastolic >= 120 { return .hypertensiveCrisis }
+        if systolic >= 140 || diastolic >= 90  { return .hypertensionStage2 }
+        if systolic >= 130 || diastolic >= 80  { return .hypertensionStage1 }
+        if systolic >= 120                     { return .elevated }
+        if diastolic >= 70                     { return .normal }
+        return .optimal
     }
 
     var title: String {

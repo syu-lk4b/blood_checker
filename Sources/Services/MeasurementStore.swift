@@ -36,7 +36,7 @@ final class MeasurementStore: ObservableObject {
     }
 
     func updateReading(_ reading: BloodPressureReading, photo: UIImage?) {
-        guard let index = readings.firstIndex(where: { $0.id == reading.id }) else { return }
+        guard readings.contains(where: { $0.id == reading.id }) else { return }
         queue.async { [weak self] in
             guard let self else { return }
             var mutableReading = reading
@@ -44,7 +44,8 @@ final class MeasurementStore: ObservableObject {
                 mutableReading.photoFilename = try? self.photoStorage.persist(image: photo, id: reading.id)
             }
             DispatchQueue.main.async {
-                self.readings[index] = mutableReading
+                guard let freshIndex = self.readings.firstIndex(where: { $0.id == reading.id }) else { return }
+                self.readings[freshIndex] = mutableReading
                 self.persist()
             }
         }
@@ -87,13 +88,14 @@ final class MeasurementStore: ObservableObject {
     }
 
     private func persist() {
+        let snapshot = readings
         queue.async { [weak self] in
             guard let self else { return }
             do {
-                let encoded = try JSONEncoder().encode(self.readings)
+                let encoded = try JSONEncoder().encode(snapshot)
                 try encoded.write(to: self.fileURL, options: .atomic)
             } catch {
-                assertionFailure("Failed to save readings: \(error)")
+                print("Failed to save readings: \(error)")
             }
         }
     }

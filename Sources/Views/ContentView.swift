@@ -89,6 +89,7 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity)
         }
+        .accessibilityLabel(tab.title)
     }
 
     private var bottomSafeArea: CGFloat {

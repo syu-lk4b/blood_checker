@@ -43,6 +43,8 @@ struct ChatBubbleView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 2)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(isUser ? "我" : "AI 助手")说：\(message.content)")
     }
 
     private static let timeFormatter: DateFormatter = {

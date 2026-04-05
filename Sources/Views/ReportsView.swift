@@ -40,6 +40,8 @@ struct ReportsView: View {
                             Image(systemName: "square.and.arrow.up")
                         }
                         .disabled(readings.isEmpty)
+                        .accessibilityLabel("导出报告")
+                        .accessibilityHint("生成并分享 PDF 格式的血压报告")
                     }
                 }
             }
@@ -214,6 +216,8 @@ struct ReportPreview: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(uiColor: .tertiarySystemFill))
         .cornerRadius(12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title) \(value)")
     }
 }
 
