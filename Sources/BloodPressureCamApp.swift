@@ -5,13 +5,18 @@ struct BloodPressureCamApp: App {
     @StateObject private var store = MeasurementStore()
     @StateObject private var llmService = LLMService()
     @StateObject private var chatStore = ChatStore()
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(store)
-                .environmentObject(llmService)
-                .environmentObject(chatStore)
+            if hasCompletedOnboarding {
+                ContentView()
+                    .environmentObject(store)
+                    .environmentObject(llmService)
+                    .environmentObject(chatStore)
+            } else {
+                OnboardingView()
+            }
         }
     }
 }

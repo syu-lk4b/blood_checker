@@ -70,6 +70,7 @@ struct StatisticsView: View {
                     }
                 }
                 .frame(height: 220)
+                .accessibilityLabel("血压趋势图表，共\(data.count)条数据")
             }
         }
     }
@@ -120,5 +121,7 @@ private struct StatisticBadge: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(.thinMaterial)
         .cornerRadius(12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title) \(value)")
     }
 }

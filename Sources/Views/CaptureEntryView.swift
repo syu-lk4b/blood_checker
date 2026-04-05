@@ -20,6 +20,7 @@ struct CaptureEntryView: View {
                 Image(systemName: "camera.fill")
                     .font(.system(size: 72))
                     .foregroundColor(.accentColor)
+                    .accessibilityHidden(true)
                 Text("对准血压计的屏幕，拍照识别")
                     .font(.title2)
                 Text("拍照后可对识别出来的数据进行校准和补充")
@@ -41,10 +42,12 @@ struct CaptureEntryView: View {
                         .cornerRadius(12)
                         .padding(.horizontal)
                 }
+                .accessibilityHint("打开相机拍摄血压计屏幕")
                 Button(action: { showManualEntry = true }) {
                     Text("手动录入")
                         .padding(.bottom)
                 }
+                .accessibilityHint("手动输入血压读数")
             }
             .navigationTitle("拍照录入")
         }

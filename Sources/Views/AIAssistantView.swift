@@ -30,11 +30,13 @@ struct AIAssistantView: View {
                     Button(action: { showSessionList.toggle() }) {
                         Image(systemName: "list.bullet")
                     }
+                    .accessibilityLabel("对话记录列表")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: createNewSession) {
                         Image(systemName: "square.and.pencil")
                     }
+                    .accessibilityLabel("新建对话")
                 }
             }
             .sheet(isPresented: $showSessionList) {
@@ -69,6 +71,7 @@ struct AIAssistantView: View {
             Image(systemName: "brain")
                 .font(.system(size: 64))
                 .foregroundColor(.secondary)
+                .accessibilityHidden(true)
             Text("AI 助手未配置")
                 .font(.title2)
             Text("请前往「设置」页面配置 AI 服务")
@@ -103,6 +106,8 @@ struct AIAssistantView: View {
                 .padding(.top, 8)
             }
             .disabled(isStreaming)
+            .accessibilityLabel("分析我的血压数据")
+            .accessibilityHint("使用 AI 分析您的血压记录并给出建议")
 
             // Messages
             ScrollViewReader { proxy in
@@ -163,6 +168,8 @@ struct AIAssistantView: View {
                         .font(.title3)
                         .foregroundColor(attachData ? .accentColor : .secondary)
                 }
+                .accessibilityLabel(attachData ? "已附加血压数据" : "附加血压数据")
+                .accessibilityHint("将血压数据一并发送给 AI 分析")
 
                 TextField("输入问题...", text: $inputText, axis: .vertical)
                     .textFieldStyle(.roundedBorder)
@@ -175,6 +182,7 @@ struct AIAssistantView: View {
                         .foregroundColor(canSend ? .accentColor : .secondary)
                 }
                 .disabled(!canSend)
+                .accessibilityLabel("发送消息")
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
@@ -268,10 +276,10 @@ struct AIAssistantView: View {
             fullContent = "以下是我的血压数据:\n\(dataContext)\n\n我的问题是: \(text)"
         }
 
-        let userMessage = ChatMessage(role: .user, content: text)
+        let userMessage = ChatMessage(role: .user, content: fullContent)
         chatStore.addMessage(userMessage, toSessionId: sessionId)
 
-        let allMessages = buildMessagesForAPI(userContent: fullContent, sessionId: sessionId)
+        let allMessages = buildMessagesForAPI(sessionId: sessionId)
         inputText = ""
         attachData = false
 
@@ -301,6 +309,14 @@ struct AIAssistantView: View {
 
         streamTask?.cancel()
         streamTask = Task {
+            defer {
+                Task { @MainActor in
+                    if isStreaming {
+                        isStreaming = false
+                        streamingContent = ""
+                    }
+                }
+            }
             var buffer = ""
             do {
                 for try await chunk in llmService.streamChat(messages: messages) {
@@ -335,20 +351,13 @@ struct AIAssistantView: View {
         }
     }
 
-    private func buildMessagesForAPI(userContent: String, sessionId: UUID) -> [ChatMessage] {
+    private func buildMessagesForAPI(sessionId: UUID) -> [ChatMessage] {
         var messages: [ChatMessage] = [
             ChatMessage(role: .system, content: Self.systemPrompt)
         ]
         if let session = chatStore.sessions.first(where: { $0.id == sessionId }) {
             let recentMessages = session.messages.suffix(10)
             messages.append(contentsOf: recentMessages.filter { $0.role != .system })
-        }
-        if let lastIndex = messages.lastIndex(where: { $0.role == .user }) {
-            messages[lastIndex] = ChatMessage(
-                role: .user,
-                content: userContent,
-                timestamp: messages[lastIndex].timestamp
-            )
         }
         return messages
     }

@@ -12,6 +12,7 @@ struct SettingsView: View {
             Section(header: Text("通用")) {
                 Toggle("高血压提醒高亮", isOn: $shouldHighlightHighReadings)
                 Toggle("开启测量提醒", isOn: $reminderEnabled)
+                    .accessibilityHint("开启后每天定时提醒测量血压")
                 if reminderEnabled {
                     DatePicker("提醒时间", selection: $reminderDate, displayedComponents: .hourAndMinute)
                         .onChange(of: reminderDate) { newValue in
@@ -19,6 +20,23 @@ struct SettingsView: View {
                             reminderHour = components.hour ?? reminderHour
                             reminderMinute = components.minute ?? reminderMinute
                         }
+                }
+            }
+
+            Section(header: Text("关于")) {
+                HStack {
+                    Text("应用版本")
+                    Spacer()
+                    Text("1.0")
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("应用版本 1.0")
+                if let privacyURL = URL(string: "https://example.com/privacy") {
+                    Link("隐私政策", destination: privacyURL)
+                }
+                if let feedbackURL = URL(string: "mailto:feedback@example.com") {
+                    Link("意见反馈", destination: feedbackURL)
                 }
             }
         }

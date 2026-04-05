@@ -15,16 +15,17 @@
 		3EE70A372C32763315EE1B69 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */; };
 		55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AB55E7E07D245DD98AB533 /* ContentView.swift */; };
 		59B7B4F5F4FD7D2BEDE57D61 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */; };
-		5E5D55C960F31C7B817ACA51 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD90C16AF3FEC00448252E0 /* MoreView.swift */; };
 		604D87C4F4C70A3E9A2D016F /* CaptureEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D5981A8F18854C96C9FBE /* CaptureEntryView.swift */; };
 		6501357C5B52441DE9B3D9A9 /* PhotoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */; };
 		6D9F7DDA5F1E912BDC9E06EA /* ReportMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33357441BF6E181B1C8BCECD /* ReportMetrics.swift */; };
 		75472122175D21ABDED30DA3 /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8446036EC4A5FA78457B23 /* ChatStore.swift */; };
 		8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506027064A26861FCA64F707 /* LLMSettingsView.swift */; };
 		9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */; };
+		AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */; };
 		AF97815AF8752E88171A88D3 /* MeasurementStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */; };
 		BB6ED88B2DD73E92F2A0A8E6 /* BloodPressureCamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */; };
 		BB8133BFFE2D3C58AD67D829 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B0F0F56BF7B60CA47EB8F9 /* ChatMessage.swift */; };
+		BBAFAB66EAF5B6CF290EE6D1 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A73BB2EB2826D807574810 /* OnboardingView.swift */; };
 		BD0A8071A28F7C7C6BBDA752 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1470FFB0FCC740193E449F84 /* RecordsView.swift */; };
 		BD1122D3B0658A6914DAC7DA /* LLMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6012EC813DBA6690C0 /* LLMService.swift */; };
 		C48DC6BF093EC7E79FC57BBD /* MeasurementStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A78D6A434F29AAA2166007 /* MeasurementStore.swift */; };
@@ -57,11 +58,13 @@
 		150C158114A8BE19D5226858 /* BloodPressureReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureReading.swift; sourceTree = "<group>"; };
 		33357441BF6E181B1C8BCECD /* ReportMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMetrics.swift; sourceTree = "<group>"; };
 		393A4C9350B48BA2BFD01C57 /* LLMConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMConfig.swift; sourceTree = "<group>"; };
+		48A73BB2EB2826D807574810 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		4EE02BADF7CF8410FE9FF742 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
 		506027064A26861FCA64F707 /* LLMSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMSettingsView.swift; sourceTree = "<group>"; };
 		5C6F53F68207B5BBFBABE826 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
+		5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		7E976D1DDC4C232ECFB0ECC4 /* BloodPressureCamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureCamApp.swift; sourceTree = "<group>"; };
 		8026A4D6A1C35AA69CB53516 /* ReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGenerator.swift; sourceTree = "<group>"; };
 		81CEB34E359F27DDA283F9BF /* AIAssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssistantView.swift; sourceTree = "<group>"; };
@@ -69,7 +72,6 @@
 		8FA50D6012EC813DBA6690C0 /* LLMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMService.swift; sourceTree = "<group>"; };
 		9F5A2650D63508C3F60CC25F /* ChatBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleView.swift; sourceTree = "<group>"; };
 		A5B0F0F56BF7B60CA47EB8F9 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
-		ABD90C16AF3FEC00448252E0 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		B3391F39EDB137B286615478 /* LLMConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMConfigTests.swift; sourceTree = "<group>"; };
 		B8B52E873136FA01CFDF1B8F /* MeasurementStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementStoreTests.swift; sourceTree = "<group>"; };
 		D1FF51C729A05F4AA02E3E22 /* PhotoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorage.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				4C58377E2CFBEAB000D47F6E /* Color+Hex.swift */,
 				07CECEDFC596593543B91AA5 /* DateRangeOption.swift */,
+				5F9DFED9ED097A0AD193AFA7 /* KeychainHelper.swift */,
 				33357441BF6E181B1C8BCECD /* ReportMetrics.swift */,
 			);
 			path = Utilities;
@@ -134,7 +137,7 @@
 				85AB55E7E07D245DD98AB533 /* ContentView.swift */,
 				506027064A26861FCA64F707 /* LLMSettingsView.swift */,
 				4F9415EA2E920F84BB24F6A6 /* ManualEntryView.swift */,
-				ABD90C16AF3FEC00448252E0 /* MoreView.swift */,
+				48A73BB2EB2826D807574810 /* OnboardingView.swift */,
 				1470FFB0FCC740193E449F84 /* RecordsView.swift */,
 				4EE02BADF7CF8410FE9FF742 /* ReportsView.swift */,
 				DF3150A2B4FCB1207A321AF3 /* SettingsView.swift */,
@@ -292,12 +295,13 @@
 				C7368AE7DC5E62BB0A89D91A /* Color+Hex.swift in Sources */,
 				55857A1EFFD21FD03F917DA3 /* ContentView.swift in Sources */,
 				FEA5D6C1F23E5767B37FE79E /* DateRangeOption.swift in Sources */,
+				AF1AF498CBD8D5A5B4538A2B /* KeychainHelper.swift in Sources */,
 				13F9A722D5D029F00F51012F /* LLMConfig.swift in Sources */,
 				BD1122D3B0658A6914DAC7DA /* LLMService.swift in Sources */,
 				8C0103E8CF0C1BACBB6540FA /* LLMSettingsView.swift in Sources */,
 				9B59CF1D2625A94295BC7388 /* ManualEntryView.swift in Sources */,
 				C48DC6BF093EC7E79FC57BBD /* MeasurementStore.swift in Sources */,
-				5E5D55C960F31C7B817ACA51 /* MoreView.swift in Sources */,
+				BBAFAB66EAF5B6CF290EE6D1 /* OnboardingView.swift in Sources */,
 				6501357C5B52441DE9B3D9A9 /* PhotoStorage.swift in Sources */,
 				BD0A8071A28F7C7C6BBDA752 /* RecordsView.swift in Sources */,
 				13D917BB6DC6D9D3E8D94A05 /* ReportGenerator.swift in Sources */,
@@ -442,6 +446,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -459,8 +464,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INFO_PLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -477,6 +480,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,8 +498,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INFO_PLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

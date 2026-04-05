@@ -33,6 +33,8 @@ struct ManualEntryView: View {
                             .foregroundColor(.secondary)
                             .padding(.leading, 8)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("正在识别血压读数")
                 }
             }
 
@@ -109,11 +111,13 @@ struct ManualEntryView: View {
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(8)
+                        .accessibilityLabel("已拍摄的血压计照片")
                 } else if let existing = existingReading, let storedImage = store.image(for: existing) {
                     Image(uiImage: storedImage)
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(8)
+                        .accessibilityLabel("已保存的血压计照片")
                 } else {
                     Text("尚未添加照片")
                         .foregroundColor(.secondary)
